@@ -1,0 +1,20 @@
+version: '3'
+services:
+  haraka:
+    build: .
+    ports:
+      - "25:25"
+      - "587:587"
+    volumes:
+      - ./haraka:/haraka
+      - ../acme-service/certs:/etc/letsencrypt/live:ro
+#   - ./letsencrypt:/etc/letsencrypt
+    environment:
+      - VIRTUAL_HOST=mail.elementalzcash.com
+      - LETSENCRYPT_HOST=mail.elementalzcash.com
+    networks:
+      - elemental_net
+networks:
+  elemental_net:
+    external: true
+
